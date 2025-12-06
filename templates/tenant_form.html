@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">{{ 'Edit' if t else 'New' }} Tenant</h3>
+<div class="card p-4">
+  <form method="post" action="/tenants/save">
+    {% if t %}<input type="hidden" name="id" value="{{ t.id }}">{% endif %}
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Platform ID (UUID)</label>
+        <input name="platform_id" class="form-control" required value="{{ t.platform_id if t else '' }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Name</label>
+        <input name="name" class="form-control" required value="{{ t.name if t else '' }}">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Platform Tenant ID</label>
+        <input name="platform_tenant_id" class="form-control" value="{{ t.platform_tenant_id if t else '' }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Platform API Version</label>
+        <input name="platform_api_version" class="form-control" value="{{ t.platform_api_version if t else '' }}">
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-label">Platform API Base URL</label>
+        <input name="platform_api_base_url" class="form-control" value="{{ t.platform_api_base_url if t else '' }}">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Platform API Username (enc)</label>
+        <input name="platform_api_username" class="form-control" value="{{ t.platform_api_username if t else '' }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Platform API Password (enc)</label>
+        <input name="platform_api_password" class="form-control" value="{{ t.platform_api_password if t else '' }}">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Connector Platform Username (enc)</label>
+        <input name="connector_platform_username" class="form-control" value="{{ t.connector_platform_username if t else '' }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Connector Platform Password (enc)</label>
+        <input name="connector_platform_password" class="form-control" value="{{ t.connector_platform_password if t else '' }}">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Veremark API Token (enc)</label>
+        <input name="veremark_api_token" class="form-control" required value="{{ t.veremark_api_token if t else '' }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Connector Veremark Username (enc)</label>
+        <input name="connector_veremark_username" class="form-control" required value="{{ t.connector_veremark_username if t else '' }}">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Connector Veremark Password (enc)</label>
+        <input name="connector_veremark_password" class="form-control" required value="{{ t.connector_veremark_password if t else '' }}">
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-label">Platform Document Category Mapping (JSON)</label>
+        <textarea name="platform_document_category_mapping" rows="2" class="form-control">{{ t.platform_document_category_mapping if t else '' }}</textarea>
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Platform Request Status Mapping (JSON)</label>
+        <textarea name="platform_request_status_mapping" rows="2" class="form-control">{{ t.platform_request_status_mapping if t else '' }}</textarea>
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-label">Platform Custom Report URL</label>
+        <input name="platform_custom_report_url" class="form-control" value="{{ t.platform_custom_report_url if t else '' }}">
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Connector Veremark Notification URL</label>
+        <input name="connector_veremark_notification_url" class="form-control" value="{{ t.connector_veremark_notification_url if t else '' }}">
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-label">Platform Check Status Mapping (JSON)</label>
+        <textarea name="platform_check_status_mapping" rows="2" class="form-control">{{ t.platform_check_status_mapping if t else '' }}</textarea>
+      </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+      <button class="btn btn-primary" type="submit">Save</button>
+      <a class="btn btn-secondary" href="/tenants">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

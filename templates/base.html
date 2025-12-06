@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ title or "Veremark Admin" }}</title>
+<link rel="stylesheet"
+ href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+<style>
+  body { background:#0f172a; color:#e2e8f0; padding-top:72px; }
+  .navbar { box-shadow:0 4px 18px rgba(0,0,0,.3); }
+  .card { background:#111827; border:1px solid #1f2937; color: white;}
+  table { color:#e2e8f0 !important; }
+  .table thead { background:#1f2937; }
+  .table-container { overflow-x:auto; }
+  .table-full { width:100% !important; }
+  .badge-header { font-size:.8rem; text-transform:uppercase; color:#9ca3af; }
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Veremark Admin</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="/platforms">Platforms</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tenants">Tenants</a></li>
+        <li class="nav-item"><a class="nav-link" href="/docs" target="_blank">API Docs</a></li>
+        <li class="nav-item"><a class="nav-link" href="/crypto-tools">Crypto Tools</a></li>
+      </ul>
+  </div>
+</nav>
+
+<div class="container-fluid py-4">
+  {% block content %}{% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener("click", function(e) {
+  if (!e.target.matches(".view-toggle")) return;
+
+  const btn = e.target;
+  const td = btn.closest("td");
+  const span = td.querySelector(".value-text");
+  const full  = btn.dataset.full;
+  const short = btn.dataset.short;
+  const state = btn.dataset.state || "short";
+
+  if (state === "short") {
+    span.textContent = full;
+    btn.textContent = "Hide";
+    btn.dataset.state = "full";
+  } else {
+    span.textContent = short;
+    btn.textContent = "View";
+    btn.dataset.state = "short";
+  }
+});
+</script>
+
+
+</body>
+</html>

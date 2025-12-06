@@ -1,0 +1,112 @@
+{# templates/tenants_list.html #}
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h3 class="m-0">Tenants</h3>
+    <div class="badge-header">Manage platform credentials & tokens</div>
+  </div>
+  <a href="/tenants/new" class="btn btn-primary">+ New Tenant</a>
+</div>
+
+<div class="card p-3">
+  <div class="table-container">
+    <table class="table table-sm table-hover table-full align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Platform ID</th>
+          <th>Platform Tenant ID</th>
+          <th>API Base URL</th>
+          <th>Version</th>
+          <th>Platform User</th>
+          <th>Platform Pass</th>
+          <th>Connector User</th>
+          <th>Connector Pass</th>
+          <th>Veremark Token</th>
+          <th>Conn. Veremark User</th>
+          <th>Conn. Veremark Pass</th>
+          <th>Custom Report</th>
+          <th>Notification URL</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for t in tenants %}
+        <tr style="background-color: {{ '#0f172a' if loop.index is odd else '#111827' }}">
+          <td class="small font-monospace">
+            {{ macros.cell_with_view(t.id, 12) }}
+          </td>
+          <td class="fw-semibold">{{ t.name }}</td>
+          <td class="small font-monospace">
+            {{ macros.cell_with_view(t.platform_id, 16) }}
+          </td>
+          <td class="small font-monospace">
+            {{ macros.cell_with_view(t.platform_tenant_id, 16) }}
+          </td>
+
+          <td class="small">
+            {{ macros.cell_with_view(t.platform_api_base_url, 40) }}
+          </td>
+          <td class="small">
+            {{ t.platform_api_version or '-' }}
+          </td>
+
+          <td class="small">
+            {{ macros.cell_with_view(t.platform_api_username, 24) }}
+          </td>
+          <td class="small">
+            {{ macros.cell_with_view(t.platform_api_password, secret=True) }}
+          </td>
+
+          <td class="small">
+            {{ macros.cell_with_view(t.connector_platform_username, 24) }}
+          </td>
+          <td class="small">
+            {{ macros.cell_with_view(t.connector_platform_password, secret=True) }}
+          </td>
+
+          <td class="small font-monospace">
+            {{ macros.cell_with_view(t.veremark_api_token, 16) }}
+          </td>
+
+          <td class="small">
+            {{ macros.cell_with_view(t.connector_veremark_username, 24) }}
+          </td>
+          <td class="small">
+            {{ macros.cell_with_view(t.connector_veremark_password, secret=True) }}
+          </td>
+
+          <td class="small">
+            {{ macros.cell_with_view(t.platform_custom_report_url, 40) }}
+          </td>
+          <td class="small">
+            {{ macros.cell_with_view(t.connector_veremark_notification_url, 40) }}
+          </td>
+
+          <td>
+            <a href="/tenants/edit/{{ t.id }}" class="btn btn-sm btn-secondary mb-1">Edit</a>
+            <form action="/tenants/delete/{{ t.id }}" method="post" class="d-inline"
+                  onsubmit="return confirm('Delete tenant?');">
+              <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="16" class="text-center text-muted py-4">
+            No tenants available
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
