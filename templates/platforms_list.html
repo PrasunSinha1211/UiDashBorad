@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block page_header %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h4 mb-1">Platforms</h1>
+        <p class="text-muted mb-0">Manage Veremark platform configuration.</p>
+    </div>
+    <a href="/platforms/new" class="btn btn-primary btn-sm">
+        + New Platform
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Base URL</th>
+                    <th>API Version</th>
+                    <th>Connector API Key</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if platforms %}
+                    {% for p in platforms %}
+                        <tr>
+                            <td class="fw-semibold">{{ p.name }}</td>
+                            <td class="text-truncate" style="max-width: 260px;">
+                                {{ p.veremark_api_base_url or "-" }}
+                            </td>
+                            <td>{{ p.veremark_api_version or "-" }}</td>
+                            <td class="font-monospace small text-truncate" style="max-width: 220px;">
+                                {{ p.connector_api_key or "-" }}
+                            </td>
+                            <td class="text-end">
+                                <a class="btn btn-outline-secondary btn-sm me-1"
+                                   href="/platforms/edit/{{ p.id }}">
+                                    Edit
+                                </a>
+                                <form method="post"
+                                      action="/platforms/delete/{{ p.id }}"
+                                      class="d-inline"
+                                      data-confirm="Delete this platform? This cannot be undone.">
+                                    <button class="btn btn-outline-danger btn-sm" type="submit">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">
+                            No platforms configured yet.
+                            <a href="/platforms/new">Create the first platform.</a>
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block page_header %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h4 mb-1">Tenants</h1>
+        <p class="text-muted mb-0">
+            View and manage tenant-level configuration and credentials.
+        </p>
+    </div>
+    <a href="/tenants/new" class="btn btn-primary btn-sm">
+        + New Tenant
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Platform ID</th>
+                    <th>Platform Tenant ID</th>
+                    <th>API Base URL</th>
+                    <th>API Version</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if tenants %}
+                    {% for t in tenants %}
+                        <tr>
+                            <td class="fw-semibold">{{ t.name or "-" }}</td>
+                            <td class="font-monospace small text-truncate" style="max-width: 160px;">
+                                {{ t.platform_id or "-" }}
+                            </td>
+                            <td class="font-monospace small text-truncate" style="max-width: 140px;">
+                                {{ t.platform_tenant_id or "-" }}
+                            </td>
+                            <td class="text-truncate" style="max-width: 260px;">
+                                {{ t.platform_api_base_url or "-" }}
+                            </td>
+                            <td>{{ t.platform_api_version or "-" }}</td>
+                            <td class="text-end">
+                                <a class="btn btn-outline-secondary btn-sm me-1"
+                                   href="/tenants/edit/{{ t.id }}">
+                                    Edit
+                                </a>
+                                <form method="post"
+                                      action="/tenants/delete/{{ t.id }}"
+                                      class="d-inline"
+                                      data-confirm="Delete this tenant? This cannot be undone.">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">
+                            No tenants configured yet.
+                            <a href="/tenants/new">Create the first tenant.</a>
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
