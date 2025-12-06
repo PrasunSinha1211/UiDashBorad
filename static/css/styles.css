@@ -1,0 +1,75 @@
+/* Layout */
+body {
+    background-color: #f5f7fb;
+}
+
+.app-main {
+    min-height: calc(100vh - 120px);
+}
+
+/* Cards */
+.card {
+    border-radius: 0.6rem;
+}
+
+.card-link {
+    transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
+    cursor: pointer;
+}
+
+.card-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.35rem 1rem rgba(15, 23, 42, 0.1);
+}
+
+/* Tables */
+.table > :not(caption) > * > * {
+    vertical-align: middle;
+}
+
+.table thead th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.table tbody td {
+    font-size: 0.9rem;
+}
+
+/* Code-ish areas */
+.font-monospace {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.small-code-area {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.78rem;
+}
+
+/* Footer */
+.app-footer {
+    font-size: 0.8rem;
+}
+
+/* Forms */
+.form-label {
+    font-weight: 500;
+}
+
+/* Buttons */
+.btn-primary {
+    border-radius: 999px;
+}
+
+.btn-outline-secondary,
+.btn-outline-danger {
+    border-radius: 999px;
+}
+
+/* Utilities */
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
